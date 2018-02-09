@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.saveDir" value="/tmp" />
+
+
+	
+	<package name="default" namespace="/" extends="json-default">
+	
+		<action name="receive" class="com.control.action.ReceiveAction" method="addServiceTask">
+		</action>
+		
+		<action name="generate" class="com.control.action.NodeAction">
+		</action>
+		
+		<action name="join" class="com.control.action.NodeAction" method="join">
+		</action>
+		
+		<action name="sendTask" class="com.control.action.TaskAction" method="sendTask">
+		</action>
+		
+		<action name="check" class="com.control.action.TaskAction" method="check">
+			<result type="redirectAction">sendTask?node_id=${Node_id}</result>
+		</action>
+		
+		<action name="getResult" class="com.control.action.TaskAction" method="getResult">
+		</action>
+		
+		<action name="listNodes" class="com.control.action.NodeAction" method="listNodes">
+			<result name="success">/listNodes.jsp</result>
+		</action>
+		
+		<!-- 下载字典 -->
+		<action name="download" class="com.control.action.DownloadAction">
+         <result name="success" type="stream">
+            <param name="contentType">application/octet-stream;charset=ISO-8859-1</param>
+            <param name="inputName">targetFile</param>
+            <param name="contentDisposition">attachment;filename="${fileName}"</param>
+            <param name="buffersize">2048</param>
+         </result>
+      </action>
+      
+      <action name="getTaskStatus" class="com.control.action.TaskAction" method="getTaskStatus">
+      </action>
+      
+      <action name="getTaskProgress" class="com.control.action.TaskAction" method="getTaskProgress">
+      </action>
+      
+      <action name="getTaskResults" class="com.control.action.TaskAction" method="getTaskResults">
+      </action>
+      
+      <action name="stopTask" class="com.control.action.TaskAction" method="stopTask">
+      </action>
+      
+      
+	</package>
+
+	
+	
+</struts>
